@@ -1,4 +1,4 @@
-package repositoryJpa;
+package repository.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,15 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import model.Adresse;
+import application.Application;
 import model.Client;
-import repository.IAdresseRepository;
+import model.Entreprise;
+import model.Particulier;
+import repository.IClientRepository;
 
-public class AdresseRepositoryJpa implements IAdresseRepository {
+public class ClientRepositoryJpa implements IClientRepository {
 
 	@Override
-	public List<Adresse> findAll() {
-		List<Adresse> adresses = new ArrayList<Adresse>();
+	public List<Client> findAll() {
+		List<Client> clients = new ArrayList<Client>();
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		
@@ -26,9 +28,9 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 			tx.begin();
 			
 
-			TypedQuery<Adresse> query = em.createQuery("select a from Adresse a", Adresse.class);
+			TypedQuery<Client> query = em.createQuery("select c from Client c", Client.class);
 
-			adresses = query.getResultList();
+			clients = query.getResultList();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -41,12 +43,12 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 				em.close();
 			}
 		}
-		return adresses;
+		return clients;
 	}
 
 	@Override
-	public Adresse findById(Long id) {
-		Adresse adresse = null;
+	public Client findById(Long id) {
+		Client client = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -56,7 +58,7 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			adresse= em.find(Adresse.class, id);
+			client = em.find(Client.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -71,11 +73,11 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 			}
 		}
 
-		return adresse;
+		return client;
 	}
 
 	@Override
-	public Adresse save(Adresse obj) {
+	public Client save(Client obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -103,7 +105,7 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 	}
 
 	@Override
-	public void delete(Adresse obj) {
+	public void delete(Client obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -126,7 +128,6 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 				em.close();
 			}
 		}
-		
 	}
 
 }
