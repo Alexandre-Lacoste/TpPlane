@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
+import DAO.Application;
 import model.Billet;
 import repository.IBilletRepository;
 
