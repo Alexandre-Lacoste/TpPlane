@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class CompagnieAerienne {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String code;
 	private String nom;
 	@OneToMany(mappedBy="compagnieAeriennes")

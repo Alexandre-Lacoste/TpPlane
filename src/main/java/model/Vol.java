@@ -22,6 +22,8 @@ public class Vol {
 	private Integer nbPlaceDispo;
 	@OneToMany(mappedBy="vols")
 	private List<Billet> billet;
+	@OneToMany
+	@JoinColumn(name="volCompagnieAerienne_id")
 	private List<CompagnieAerienneVol> volCompagnieAerienne;
 	@OneToOne
 	@JoinColumn(name="aeroportDepart_id")
@@ -44,9 +46,43 @@ public class Vol {
 		this.depart = depart;
 		this.arrive = arrive;
 	}
+	
 	public Vol() {
 		super();
 	}
+	
+	public List<Billet> getBillet() {
+		return billet;
+	}
+
+	public void setBillet(List<Billet> billet) {
+		this.billet = billet;
+	}
+
+	public List<CompagnieAerienneVol> getVolCompagnieAerienne() {
+		return volCompagnieAerienne;
+	}
+
+	public void setVolCompagnieAerienne(List<CompagnieAerienneVol> volCompagnieAerienne) {
+		this.volCompagnieAerienne = volCompagnieAerienne;
+	}
+
+	public Aeroport getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Aeroport depart) {
+		this.depart = depart;
+	}
+
+	public Aeroport getArrive() {
+		return arrive;
+	}
+
+	public void setArrive(Aeroport arrive) {
+		this.arrive = arrive;
+	}
+
 	public Long getId() {
 		return id;
 	}
