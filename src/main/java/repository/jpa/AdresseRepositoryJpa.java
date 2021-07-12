@@ -1,4 +1,4 @@
-package repositoryJpa;
+package repository.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,17 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import Application;
-import model.Client;
-import model.Entreprise;
-import model.Particulier;
-import repository.IClientRepository;
+import DAO.Application;
+import model.Adresse;
+import repository.IAdresseRepository;
 
-public class ClientRepositoryJpa implements IClientRepository {
+public class AdresseRepositoryJpa implements IAdresseRepository {
 
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = new ArrayList<Client>();
+	public List<Adresse> findAll() {
+		List<Adresse> adresses = new ArrayList<Adresse>();
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		
@@ -28,9 +26,9 @@ public class ClientRepositoryJpa implements IClientRepository {
 			tx.begin();
 			
 
-			TypedQuery<Client> query = em.createQuery("select c from Client c", Client.class);
+			TypedQuery<Adresse> query = em.createQuery("select a from Adresse a", Adresse.class);
 
-			clients = query.getResultList();
+			adresses = query.getResultList();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -43,12 +41,12 @@ public class ClientRepositoryJpa implements IClientRepository {
 				em.close();
 			}
 		}
-		return clients;
+		return adresses;
 	}
 
 	@Override
-	public Client findById(Long id) {
-		Client client = null;
+	public Adresse findById(Long id) {
+		Adresse adresse = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -58,7 +56,7 @@ public class ClientRepositoryJpa implements IClientRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			adresse= em.find(Adresse.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -73,11 +71,11 @@ public class ClientRepositoryJpa implements IClientRepository {
 			}
 		}
 
-		return client;
+		return adresse;
 	}
 
 	@Override
-	public Client save(Client obj) {
+	public Adresse save(Adresse obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -105,7 +103,7 @@ public class ClientRepositoryJpa implements IClientRepository {
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(Adresse obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -128,6 +126,7 @@ public class ClientRepositoryJpa implements IClientRepository {
 				em.close();
 			}
 		}
+		
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
@@ -19,10 +20,8 @@ public class Vol {
 	private Date dtArrivee;
 	private StatutVol statut;
 	private Integer nbPlaceDispo;
-//	@ManyToOne
-//	@JoinColumn(name="billet_id")
-//	private Billet billet;
 	@OneToMany(mappedBy="vols")
+	private List<Billet> billet;
 	private List<CompagnieAerienneVol> volCompagnieAerienne;
 	@OneToOne
 	@JoinColumn(name="aeroportDepart_id")
@@ -30,6 +29,24 @@ public class Vol {
 	@OneToOne
 	@JoinColumn(name="aeroportArrive_id")
 	private Aeroport arrive;
+	
+	
+	
+	public Vol(Long id, Date dtDepart, Date dtArrivee, StatutVol statut, Integer nbPlaceDispo,
+			List<CompagnieAerienneVol> volCompagnieAerienne, Aeroport depart, Aeroport arrive) {
+		super();
+		this.id = id;
+		this.dtDepart = dtDepart;
+		this.dtArrivee = dtArrivee;
+		this.statut = statut;
+		this.nbPlaceDispo = nbPlaceDispo;
+		this.volCompagnieAerienne = volCompagnieAerienne;
+		this.depart = depart;
+		this.arrive = arrive;
+	}
+	public Vol() {
+		super();
+	}
 	public Long getId() {
 		return id;
 	}
