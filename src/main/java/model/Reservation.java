@@ -62,6 +62,14 @@ public class Reservation {
 		this.confirme = confirme;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	public List<Billet> getBillet() {
 		return billet;
 	}

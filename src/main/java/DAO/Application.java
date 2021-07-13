@@ -28,8 +28,6 @@ public class Application {
 
 	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("formation-jpa");
 
-	private final IEntrepriseRepository entrepriseRepo = new EntrepriseRepositoryJpa();
-	private final IParticulierRepository particulierRepo = new ParticulierRepositoryJpa();
 	private final IClientRepository clientRepo = new ClientRepositoryJpa();
 	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
 	private final IReservationRepository reservationRepo = new ReservationRepositoryJpa();
