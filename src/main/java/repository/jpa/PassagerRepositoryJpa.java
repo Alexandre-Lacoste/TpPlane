@@ -1,9 +1,11 @@
 package repository.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import DAO.Application;
 import model.Passager;
@@ -13,8 +15,34 @@ public class PassagerRepositoryJpa implements IPassagerRepository{
 
 	@Override
 	public List<Passager> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Passager> passagers = new ArrayList<Passager>();
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Passager> query = em.createQuery("select p from Passager p ", Passager.class);
+
+			passagers = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return passagers;
 	}
 
 	@Override
