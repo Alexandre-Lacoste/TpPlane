@@ -20,10 +20,8 @@ public class Client {
 	@ManyToOne
 	@JoinColumn(name="adress_Id")
 	private Adresse addresses;
-	//@Transient
-	//@ManyToOne
-	//@JoinColumn(name="reservation_Id")
-	//private Reservation reservation
+	@OneToMany(mappedBy="client")
+	private List<Reservation> reservation;
 	
 	public Client(int id, String nom) {
 		super();

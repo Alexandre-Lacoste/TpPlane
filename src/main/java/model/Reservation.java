@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,11 +41,9 @@ public class Reservation {
 	@OneToOne
 	@JoinColumn(name="passager")
 	private Passager passager;
-
-	
-	//@ManyToOne
-	// @JoinColumn(name="client")
-	// private Client client;
+	@ManyToOne
+	@JoinColumn(name="client_ID")
+	private Client client;
 
 	public Reservation()
 	{
