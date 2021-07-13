@@ -1,4 +1,4 @@
-package repositoryJpa;
+package repository.jpa;
 
 import java.util.ArrayList;
 import java.util.List;

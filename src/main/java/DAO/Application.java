@@ -2,10 +2,14 @@
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import repository.IAdresseRepository;
 import repository.IBilletRepository;
+import repository.IClientRepository;
 import repository.IPassagerRepository;
 import repository.IReservationRepository;
+import repository.jpa.AdresseRepositoryJpa;
 import repository.jpa.BilletRepositoryJpa;
+import repository.jpa.ClientRepositoryJpa;
 import repository.jpa.PassagerRepositoryJpa;
 import repository.jpa.ReservationRepositoryJpa;
 
@@ -14,8 +18,6 @@ public class Application {
 
 	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("formation-jpa");
 
-	private final IEntrepriseRepository entrepriseRepo = new EntrepriseRepositoryJpa();
-	private final IParticulierRepository particulierRepo = new ParticulierRepositoryJpa();
 	private final IClientRepository clientRepo = new ClientRepositoryJpa();
 	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
 	private final IReservationRepository reservationRepo = new ReservationRepositoryJpa();
