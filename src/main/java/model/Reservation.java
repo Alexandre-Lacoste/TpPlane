@@ -39,11 +39,14 @@ public class Reservation {
 	@OneToOne
 	@JoinColumn(name="passager")
 	private Passager passager;
+	@ManyToOne
+	@JoinColumn(name="client_ID")
+	private Client client;
 
 	
-	@ManyToOne
-	@JoinColumn(name="client")
-	private Client client;
+	//@ManyToOne
+	// @JoinColumn(name="client")
+	// private Client client;
 
 	public Reservation()
 	{
