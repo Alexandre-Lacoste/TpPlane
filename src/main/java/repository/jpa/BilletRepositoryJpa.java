@@ -25,7 +25,7 @@ public class BilletRepositoryJpa implements IBilletRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Billet> query = em.createQuery("select e from Evaluation e ", Billet.class);
+			TypedQuery<Billet> query = em.createQuery("select b from Billet b ", Billet.class);
 
 			billets = query.getResultList();
 

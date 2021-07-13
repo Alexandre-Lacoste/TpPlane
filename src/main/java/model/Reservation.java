@@ -44,6 +44,11 @@ public class Reservation {
 	@JoinColumn(name="client_ID")
 	private Client client;
 
+	
+	//@ManyToOne
+	// @JoinColumn(name="client")
+	// private Client client;
+
 	public Reservation()
 	{
 		super();
