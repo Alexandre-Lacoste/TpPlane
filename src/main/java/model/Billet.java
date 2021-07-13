@@ -1,14 +1,12 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -29,11 +27,13 @@ public class Billet {
 	@Column(name="prix")
 	private float prix;
 	
-	@OneToMany(mappedBy = "billet")
-	private List<Reservation> reservation = new ArrayList<Reservation>();
+	@ManyToOne
+	@JoinColumn(name="reservationVol_id")
+	private Reservation reservation = new Reservation();
 
-	//@OneToMany(mappedBy = "vol")
-	//private List<Vol> vol = new ArrayList<Vol>();
+	@ManyToOne
+	@JoinColumn(name="billetReservation_id")
+	private Vol vols = new Vol();
 
 	
 	public Billet()

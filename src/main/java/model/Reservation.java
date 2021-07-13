@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,9 +32,10 @@ public class Reservation {
 	@Column(name="confirme")
 	private StatutReservation confirme;
 	
-	@ManyToOne
-	@JoinColumn(name="Billet")
-	private Billet billet;
+//	@ManyToOne
+//	@JoinColumn(name="Billet")
+	@OneToMany(mappedBy="reservation")
+	private List<Billet> billet;
 	
 	@OneToOne
 	@JoinColumn(name="passager")

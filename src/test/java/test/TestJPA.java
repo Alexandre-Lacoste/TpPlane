@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 public class TestJPA {
 
 	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("formation-jpa");	
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("vol");	
 		
 		
 		

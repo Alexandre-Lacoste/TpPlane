@@ -8,125 +8,115 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import DAO.Application;
-import model.Reservation;
-import repository.IReservationRepository;
+import model.CompagnieAerienneVol;
+import repository.ICompagnieAerienneVolRepository;
 
-public class ReservationRepositoryJpa implements IReservationRepository {
-
+public class CompagnieAerienneVolRepositoryJpa implements ICompagnieAerienneVolRepository{
 	@Override
-	public List<Reservation> findAll() {
-		List<Reservation> reservation = new ArrayList<Reservation>();
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public CompagnieAerienneVol findById(Long id) {
+		CompagnieAerienneVol CompagnieAerienneVol = new CompagnieAerienneVol();
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			TypedQuery<Reservation> query = em.createQuery("select m from Matiere m", Reservation.class);
-
-			reservation = query.getResultList();
-
+//			TypedQuery<CompagnieAerienneVol> query = em.createQuery("select v from CompagnieAerienneVol v where v.id=:id", CompagnieAerienneVol.class);
+//			query.setParameter("id", id);
+//			CompagnieAerienneVol=query.getSingleResult();
+			CompagnieAerienneVol= em.find(CompagnieAerienneVol.class, id);
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return reservation;
+		return CompagnieAerienneVol;
 	}
 
 	@Override
-	public Reservation findById(Long id) {
-		Reservation reservation = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public CompagnieAerienneVol save(CompagnieAerienneVol obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			reservation = em.find(Reservation.class, id);
-
+			obj=em.merge(obj);
 			tx.commit();
-		} catch (Exception e) {
+			
+		} catch (Exception e) {;
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return reservation;
-	}
-
-	@Override
-	public Reservation save(Reservation obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			obj = em.merge(obj);
-
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
 		return obj;
 	}
 
 	@Override
-	public void delete(Reservation obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public void delete(CompagnieAerienneVol obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
 			em.remove(em.merge(obj));
-
+			
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
+		
+	}
+
+	@Override
+	public List<CompagnieAerienneVol> findAll() {
+		List<CompagnieAerienneVol> CompagnieAerienneVols=new ArrayList<CompagnieAerienneVol>();
+		EntityManager em=null;
+		EntityTransaction tx=null;
+		try {
+			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+			TypedQuery<CompagnieAerienneVol> query = em.createQuery("from CompagnieAerienneVol", CompagnieAerienneVol.class);
+			CompagnieAerienneVols=query.getResultList();
+			tx.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+		}			
+		finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return CompagnieAerienneVols;
 	}
 
 }

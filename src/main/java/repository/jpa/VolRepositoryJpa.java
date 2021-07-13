@@ -8,125 +8,117 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import DAO.Application;
-import model.Reservation;
-import repository.IReservationRepository;
+import model.Vol;
+import repository.IVolRepository;
 
-public class ReservationRepositoryJpa implements IReservationRepository {
+public class VolRepositoryJpa implements IVolRepository {
+
 
 	@Override
-	public List<Reservation> findAll() {
-		List<Reservation> reservation = new ArrayList<Reservation>();
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public Vol findById(Long id) {
+		Vol vol = new Vol();
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			TypedQuery<Reservation> query = em.createQuery("select m from Matiere m", Reservation.class);
-
-			reservation = query.getResultList();
-
+//			TypedQuery<Vol> query = em.createQuery("select v from vol v where v.id=:id", Vol.class);
+//			query.setParameter("id", id);
+//			vol=query.getSingleResult();
+			vol= em.find(Vol.class, id);
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return reservation;
+		return vol;
 	}
 
 	@Override
-	public Reservation findById(Long id) {
-		Reservation reservation = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public Vol save(Vol obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			reservation = em.find(Reservation.class, id);
-
+			obj=em.merge(obj);
 			tx.commit();
-		} catch (Exception e) {
+			
+		} catch (Exception e) {;
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return reservation;
-	}
-
-	@Override
-	public Reservation save(Reservation obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			obj = em.merge(obj);
-
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
 		return obj;
 	}
 
 	@Override
-	public void delete(Reservation obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public void delete(Vol obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
 			em.remove(em.merge(obj));
-
+			
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
+		
+	}
+
+	@Override
+	public List<Vol> findAll() {
+		List<Vol> vols=new ArrayList<Vol>();
+		EntityManager em=null;
+		EntityTransaction tx=null;
+		try {
+			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+			TypedQuery<Vol> query = em.createQuery("from vol", Vol.class);
+			vols=query.getResultList();
+			tx.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+		}			
+		finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return vols;
 	}
 
 }

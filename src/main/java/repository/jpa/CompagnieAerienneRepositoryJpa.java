@@ -8,125 +8,117 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import DAO.Application;
-import model.Reservation;
-import repository.IReservationRepository;
+import model.CompagnieAerienne;
+import repository.ICompagnieAerienneRepository;
 
-public class ReservationRepositoryJpa implements IReservationRepository {
+public class CompagnieAerienneRepositoryJpa implements ICompagnieAerienneRepository {
+
 
 	@Override
-	public List<Reservation> findAll() {
-		List<Reservation> reservation = new ArrayList<Reservation>();
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public CompagnieAerienne findById(String id) {
+		CompagnieAerienne CompagnieAerienne = new CompagnieAerienne();
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			TypedQuery<Reservation> query = em.createQuery("select m from Matiere m", Reservation.class);
-
-			reservation = query.getResultList();
-
+//			TypedQuery<CompagnieAerienne> query = em.createQuery("select v from CompagnieAerienne v where v.id=:id", CompagnieAerienne.class);
+//			query.setParameter("id", id);
+//			CompagnieAerienne=query.getSingleResult();
+			CompagnieAerienne= em.find(CompagnieAerienne.class, id);
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return reservation;
+		return CompagnieAerienne;
 	}
 
 	@Override
-	public Reservation findById(Long id) {
-		Reservation reservation = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public CompagnieAerienne save(CompagnieAerienne obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			reservation = em.find(Reservation.class, id);
-
+			obj=em.merge(obj);
 			tx.commit();
-		} catch (Exception e) {
+			
+		} catch (Exception e) {;
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return reservation;
-	}
-
-	@Override
-	public Reservation save(Reservation obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
-		try {
-			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-
-			obj = em.merge(obj);
-
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-
 		return obj;
 	}
 
 	@Override
-	public void delete(Reservation obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public void delete(CompagnieAerienne obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
 			em.remove(em.merge(obj));
-
+			
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
+		
+	}
+
+	@Override
+	public List<CompagnieAerienne> findAll() {
+		List<CompagnieAerienne> CompagnieAeriennes=new ArrayList<CompagnieAerienne>();
+		EntityManager em=null;
+		EntityTransaction tx=null;
+		try {
+			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+			TypedQuery<CompagnieAerienne> query = em.createQuery("from CompagnieAerienne", CompagnieAerienne.class);
+			CompagnieAeriennes=query.getResultList();
+			tx.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+		}			
+		finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return CompagnieAeriennes;
 	}
 
 }
