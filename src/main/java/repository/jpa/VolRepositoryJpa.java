@@ -1,4 +1,5 @@
 package repository.jpa;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,127 +7,118 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import application.Application;
-import model.Adresse;
-import model.Client;
-import repository.IAdresseRepository;
+import DAO.Application;
+import model.Vol;
+import repository.IVolRepository;
 
-public class AdresseRepositoryJpa implements IAdresseRepository {
+public class VolRepositoryJpa implements IVolRepository {
 
-	@Override
-	public List<Adresse> findAll() {
-		List<Adresse> adresses = new ArrayList<Adresse>();
-		EntityManager em = null;
-		EntityTransaction tx = null;
-		
-		try {
-			
-			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
-			tx = em.getTransaction();
-			tx.begin();
-			
-
-			TypedQuery<Adresse> query = em.createQuery("select a from Adresse a", Adresse.class);
-
-			adresses = query.getResultList();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null && tx.isActive()) {
-				tx.rollback();
-			}
-
-		} finally {
-			if (em != null) {
-				em.close();
-			}
-		}
-		return adresses;
-	}
 
 	@Override
-	public Adresse findById(Long id) {
-		Adresse adresse = null;
-
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public Vol findById(Long id) {
+		Vol vol = new Vol();
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			adresse= em.find(Adresse.class, id);
-
+//			TypedQuery<Vol> query = em.createQuery("select v from vol v where v.id=:id", Vol.class);
+//			query.setParameter("id", id);
+//			vol=query.getSingleResult();
+			vol= em.find(Vol.class, id);
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
-		return adresse;
+		return vol;
 	}
 
 	@Override
-	public Adresse save(Adresse obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public Vol save(Vol obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
-			obj = em.merge(obj);
-
+			obj=em.merge(obj);
 			tx.commit();
-		} catch (Exception e) {
+			
+		} catch (Exception e) {;
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-
 		return obj;
 	}
 
 	@Override
-	public void delete(Adresse obj) {
-		EntityManager em = null;
-		EntityTransaction tx = null;
-
+	public void delete(Vol obj) {
+		EntityManager em=null;
+		EntityTransaction tx=null;
 		try {
 			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-
 			em.remove(em.merge(obj));
-
+			
 			tx.commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
-		} finally {
+		}			
+		finally {
 			if (em != null) {
 				em.close();
 			}
 		}
 		
+	}
+
+	@Override
+	public List<Vol> findAll() {
+		List<Vol> vols=new ArrayList<Vol>();
+		EntityManager em=null;
+		EntityTransaction tx=null;
+		try {
+			em = Application.getInstance().getEntityManagerFactory().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+			TypedQuery<Vol> query = em.createQuery("from vol", Vol.class);
+			vols=query.getResultList();
+			tx.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+		}			
+		finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return vols;
 	}
 
 }
