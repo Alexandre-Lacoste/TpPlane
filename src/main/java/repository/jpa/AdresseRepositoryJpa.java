@@ -1,5 +1,4 @@
 package repository.jpa;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-import DAO.Application;
+import application.Application;
 import model.Adresse;
+import model.Client;
 import repository.IAdresseRepository;
 
 public class AdresseRepositoryJpa implements IAdresseRepository {
