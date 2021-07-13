@@ -22,8 +22,7 @@ public class Vol {
 	private Integer nbPlaceDispo;
 	@OneToMany(mappedBy="vols")
 	private List<Billet> billet;
-	@OneToMany
-	@JoinColumn(name="volCompagnieAerienne_id")
+	@OneToMany(mappedBy="vols")
 	private List<CompagnieAerienneVol> volCompagnieAerienne;
 	@OneToOne
 	@JoinColumn(name="aeroportDepart_id")

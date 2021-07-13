@@ -49,6 +49,22 @@ public class Billet {
 		this.prix = prix;
 	}
 
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
+	public Vol getVols() {
+		return vols;
+	}
+
+	public void setVols(Vol vols) {
+		this.vols = vols;
+	}
+
 	public Long getId() {
 		return id;
 	}

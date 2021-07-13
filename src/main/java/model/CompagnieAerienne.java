@@ -18,6 +18,19 @@ public class CompagnieAerienne {
 	public CompagnieAerienne() {
 	}
 	
+	
+
+	public List<CompagnieAerienneVol> getCompagnieAerienneVols() {
+		return compagnieAerienneVols;
+	}
+
+
+
+	public void setCompagnieAerienneVols(List<CompagnieAerienneVol> compagnieAerienneVols) {
+		this.compagnieAerienneVols = compagnieAerienneVols;
+	}
+
+
 
 	public String getCode() {
 		return code;
