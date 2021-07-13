@@ -4,10 +4,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import repository.IAdresseRepository;
+import repository.IAeroportRepository;
 import repository.IBilletRepository;
+import repository.IClientRepository;
+import repository.ICompagnieAerienneRepository;
+import repository.ICompagnieAerienneVolRepository;
 import repository.IPassagerRepository;
 import repository.IReservationRepository;
+import repository.IVilleRepository;
+import repository.IVolRepository;
+import repository.jpa.AdresseRepositoryJpa;
+import repository.jpa.AeroportRepositoryJpa;
 import repository.jpa.BilletRepositoryJpa;
+import repository.jpa.ClientRepositoryJpa;
+import repository.jpa.CompagnieAerienneRepositoryJpa;
+import repository.jpa.CompagnieAerienneVolRepositoryJpa;
 import repository.jpa.PassagerRepositoryJpa;
 import repository.jpa.ReservationRepositoryJpa;
 import repository.jpa.VilleRepositoryJpa;
@@ -18,8 +29,7 @@ public class Application {
 
 	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("formation-jpa");
 
-	private final IEntrepriseRepository entrepriseRepo = new EntrepriseRepositoryJpa();
-	private final IParticulierRepository particulierRepo = new ParticulierRepositoryJpa();
+
 	private final IClientRepository clientRepo = new ClientRepositoryJpa();
 	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
 	private final IReservationRepository reservationRepo = new ReservationRepositoryJpa();

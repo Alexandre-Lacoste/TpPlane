@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,8 +33,6 @@ public class Reservation {
 	@Column(name="confirme")
 	private StatutReservation confirme;
 	
-//	@ManyToOne
-//	@JoinColumn(name="Billet")
 	@OneToMany(mappedBy="reservation")
 	private List<Billet> billet;
 	
@@ -42,9 +41,9 @@ public class Reservation {
 	private Passager passager;
 
 	
-	//@ManyToOne
-	// @JoinColumn(name="client")
-	// private Client client;
+	@ManyToOne
+	@JoinColumn(name="client")
+	private Client client;
 
 	public Reservation()
 	{

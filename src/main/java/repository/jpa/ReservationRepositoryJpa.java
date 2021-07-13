@@ -25,7 +25,7 @@ public class ReservationRepositoryJpa implements IReservationRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Reservation> query = em.createQuery("select m from Matiere m", Reservation.class);
+			TypedQuery<Reservation> query = em.createQuery("select r from Reservation r", Reservation.class);
 
 			reservation = query.getResultList();
 
