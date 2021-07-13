@@ -33,8 +33,7 @@ public class Reservation {
 	@Column(name="confirme")
 	private StatutReservation confirme;
 	
-//	@ManyToOne
-//	@JoinColumn(name="Billet")
+
 	@OneToMany(mappedBy="reservation")
 	private List<Billet> billet;
 	
@@ -44,6 +43,11 @@ public class Reservation {
 	@ManyToOne
 	@JoinColumn(name="client_ID")
 	private Client client;
+
+	
+	//@ManyToOne
+	// @JoinColumn(name="client")
+	// private Client client;
 
 	public Reservation()
 	{
@@ -56,6 +60,30 @@ public class Reservation {
 		this.numero = numero;
 		this.dtReservation = dtReservation;
 		this.confirme = confirme;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public List<Billet> getBillet() {
+		return billet;
+	}
+
+	public void setBillet(List<Billet> billet) {
+		this.billet = billet;
+	}
+
+	public Passager getPassager() {
+		return passager;
+	}
+
+	public void setPassager(Passager passager) {
+		this.passager = passager;
 	}
 
 	public Long getId() {

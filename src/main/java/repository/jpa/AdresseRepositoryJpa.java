@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import DAO.Application;
 import model.Adresse;
-import model.Client;
 import repository.IAdresseRepository;
 
 public class AdresseRepositoryJpa implements IAdresseRepository {
