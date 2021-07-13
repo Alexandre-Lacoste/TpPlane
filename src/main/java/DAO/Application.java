@@ -1,5 +1,4 @@
 package DAO;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -52,12 +51,7 @@ public class Application {
 		return entityManagerFactory;
 	}
 	
-//	public IEntrepriseRepository getEntrepriseRepo() {
-//		return entrepriseRepo;
-//	}
-//	public IParticulierRepository getParticulierRepo() {
-//		return particulierRepo;
-//	}
+	
 	public IClientRepository getClientRepo() {
 		return clientRepo;
 	}
